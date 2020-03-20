@@ -24,13 +24,13 @@ describe('Deploy a static site on Amazon S3', () => {
     expect(res, 'Permissions should be set to make file available to the public').to.have.status(200);
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res, 'File should be an HTML file, verify the correct file was uploaded').to.be.html;
-    expect(res.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-index');
+    expect(res.text, 'File should contain the correct content, make sure the correct file was uploaded').to.have.string('ps-index');
 
     const res2 = await chai.request(host).get('/test.txt');
     expect(res2, 'Permissions should be set to make file available to the public').to.have.status(200);
     expect(res2, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res2, 'File should be an HTML file, verify the correct file was uploaded').to.be.text;
-    expect(res2.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-ccp-02');
+    expect(res2.text, 'File should contain the correct content, make sure the correct file was uploaded').to.have.string('ps-ccp-02');
   });
 
   it('error page should appear if navigating to page that does not exist @verify-static-hosting', async () => {
@@ -44,10 +44,10 @@ describe('Deploy a static site on Amazon S3', () => {
     expect(res.text, 'Make sure the proper error file was set to error.html in the static website hosting settings').to.have.string('ps-ccp-03');
 
     const res2 = await chai.request(webhost).get('/');
-    expect(res2, 'Permissions should be set to make file available to the public').to.have.status(200);
+    expect(res2, 'Permissions should be set to make index.html file available and static website hosting settings have index.html as index file').to.have.status(200);
     expect(res2, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res2, 'File should be an HTML file, verify the correct file was uploaded').to.be.html;
-    expect(res2.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-index');
+    expect(res2.text, 'File should contain the correct content, make sure the correct file was uploaded').to.have.string('ps-index');
   });
 
   it('web application should be deployed in the user bucket @verify-web-application', async () => {
@@ -55,13 +55,13 @@ describe('Deploy a static site on Amazon S3', () => {
     expect(process.env.PS_S3_WEBHOST_URL, 'Enter in the full URL from the static website hosting configuration').to.startWith('http');
 
     const res = await chai.request(webhost).get('/verify.txt');
-    expect(res, 'Make sure you did not upload any additional files into the bucket').to.have.status(200);
+    expect(res, 'Make sure you added the bucket policy to make all files publicly readable').to.have.status(200);
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res, 'Make sure the proper error file was set to error.html in the static website hosting settings').to.be.text;
     expect(res.text, 'Make sure the proper error file was set to error.html in the static website hosting settings').to.have.string('ps-ccp-03');
 
     const res2 = await chai.request(webhost).get('/');
-    expect(res2, 'Permissions should be set to make file available to the public').to.have.status(200);
+    expect(res2, 'Make sure you added the bucket policy to make all files publicly readable and that you uploaded all files in group2').to.have.status(200);
     expect(res2, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res2, 'File should be an HTML file, verify the correct file was uploaded').to.be.html;
     expect(res2.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-index');

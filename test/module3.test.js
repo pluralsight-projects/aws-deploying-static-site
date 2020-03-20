@@ -15,7 +15,7 @@ describe('Deploy a static site to Amazon CloudFront', () => {
 
   it('make sure the index file is not publicly available @verify-no-public-files', async () => {
     const res = await chai.request(host).get('/index.html');
-    expect(res, 'Make sure you did not upload any additional files into the bucket').to.have.status(403);
+    expect(res, 'Make sure you did not make index.html publicly readable or configure static website hosting').to.have.status(403);
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
   });
 
@@ -27,7 +27,7 @@ describe('Deploy a static site to Amazon CloudFront', () => {
 
   it('make sure the CloudFront content is available @verify-cloudfront-deployment', async () => {
     const res = await chai.request(cfhost).get('/');
-    expect(res, 'Make sure you did not upload any additional files into the bucket').to.have.status(200);
+    expect(res, 'Make sure you uploaded all of the correct files into the S3 bucket and configured distribution properly').to.have.status(200);
     expect(res.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-index-2');
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res, 'File should be proxied by Amazon CloudFront').to.have.header('via', /\(CloudFront\)$/);
