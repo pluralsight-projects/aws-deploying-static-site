@@ -21,13 +21,13 @@ describe('Deploy a static site on Amazon S3', () => {
     expect(process.env.PS_S3_BUCKET_NAME.length, 'Bucket name must be entered by the user').to.be.gt(3);
 
     const res = await chai.request(host).get('/index.html');
-    expect(res, 'Permissions should be set to make file available to the public').to.have.status(200);
+    expect(res, 'Permissions should be set to make index.html available to the public').to.have.status(200);
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res, 'File should be an HTML file, verify the correct file was uploaded').to.be.html;
     expect(res.text, 'File should contain the correct content, make sure the correct file was uploaded').to.have.string('ps-index');
 
     const res2 = await chai.request(host).get('/test.txt');
-    expect(res2, 'Permissions should be set to make file available to the public').to.have.status(200);
+    expect(res2, 'Permissions should be set to make test.txt available to the public').to.have.status(200);
     expect(res2, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
     expect(res2, 'File should be an HTML file, verify the correct file was uploaded').to.be.text;
     expect(res2.text, 'File should contain the correct content, make sure the correct file was uploaded').to.have.string('ps-ccp-02');

@@ -24,11 +24,11 @@
         "console": "integratedTerminal",
         "internalConsoleOptions": "neverOpen",
         "env": {
-          "PS_S3_BUCKET_NAME": "test-bucket-a1020304506",
-          "PS_AWS_ACCOUNT_ID": "111122223333",
-          "PS_S3_WEBHOST_URL": "http://test-bucket-a1020304506.s3-website-us-east-1.amazonaws.com",
-          "PS_S3_CF_BUCKET_NAME": "test-bucket-a1020304507",
-          "PS_CF_DOMAIN_NAME": "d22re0vv5oup7i.cloudfront.net"
+          "PS_S3_BUCKET_NAME": "ps-ccp-a4321",
+          "PS_AWS_ACCOUNT_ID": "234640428542",
+          "PS_S3_WEBHOST_URL": "http://ps-ccp-a4321.s3-website-us-east-1.amazonaws.com",
+          "PS_S3_CF_BUCKET_NAME": "ps-ccp-a4322",
+          "PS_CF_DOMAIN_NAME": "d3gcblhpajhhh0.cloudfront.net"
         }
     }
   ]

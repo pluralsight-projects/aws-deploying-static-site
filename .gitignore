@@ -62,3 +62,4 @@ typings/
 
 # Custom S3 sync script (David Tucker only)
 sync.sh
+.vscode
