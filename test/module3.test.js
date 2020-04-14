@@ -8,12 +8,9 @@ const cfhost = "https://" + process.env.PS_CF_DOMAIN_NAME;
 
 describe('Deploy a static site to Amazon CloudFront', () => {
 
-  it('should be a proper bucket name @verify-s3-cf-bucket-name', async () => {
+  it('make sure the index file is not publicly available @verify-no-public-files', async () => {
     expect(process.env.PS_S3_CF_BUCKET_NAME, 'Bucket name must be entered by the user').to.be.a('string');
     expect(process.env.PS_S3_CF_BUCKET_NAME.length, 'Bucket name must be entered by the user').to.be.gt(3);
-  });
-
-  it('make sure the index file is not publicly available @verify-no-public-files', async () => {
     const res = await chai.request(host).get('/index.html');
     expect(res, 'Make sure you did not make index.html publicly readable or configure static website hosting').to.have.status(403);
     expect(res, 'File should be served from Amazon S3').to.have.header('server', 'AmazonS3');
