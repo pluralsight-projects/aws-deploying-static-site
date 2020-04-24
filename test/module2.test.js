@@ -16,7 +16,7 @@ const getHostURL = () => {
   if(!process.env.PS_S3_BUCKET_NAME || process.env.PS_S3_BUCKET_NAME.length < 5) {
     return '';
   }
-  let host = 'https://' + process.env.PS_S3_BUCKET_NAME + '.s3.amazonaws.com';
+  let host = 'https://' + process.env.PS_S3_BUCKET_NAME.trim() + '.s3.amazonaws.com';
   var lastChar = host.substr(-1);
   if (lastChar != '/') {
     host = host + '/';
@@ -24,10 +24,10 @@ const getHostURL = () => {
   return addTrainingSlashIfNotPresent(host);
 };
 
-const bucketName = process.env.PS_S3_BUCKET_NAME;
+const bucketName = process.env.PS_S3_BUCKET_NAME.trim();
 const host = getHostURL();
-const webhost = addTrainingSlashIfNotPresent(process.env.PS_S3_WEBHOST_URL);
-const accountID = process.env.PS_AWS_ACCOUNT_ID;
+const webhost = addTrainingSlashIfNotPresent(process.env.PS_S3_WEBHOST_URL.trim());
+const accountID = process.env.PS_AWS_ACCOUNT_ID.trim();
 
 describe('Deploy a static site on Amazon S3', () => {
 

@@ -3,10 +3,10 @@ const expect = require('chai').expect;
 chai.use(require('chai-http'));
 chai.use(require('chai-string'));
 
-const host = "https://" + process.env.PS_S3_CF_BUCKET_NAME + ".s3.amazonaws.com";
-const domainName = process.env.PS_CF_DOMAIN_NAME;
+const host = "https://" + process.env.PS_S3_CF_BUCKET_NAME.trim() + ".s3.amazonaws.com";
+const domainName = process.env.PS_CF_DOMAIN_NAME.trim();
 const cfhost = "https://" + domainName;
-const bucketName = process.env.PS_S3_CF_BUCKET_NAME;
+const bucketName = process.env.PS_S3_CF_BUCKET_NAME.trim();
 
 describe('Deploy a static site to Amazon CloudFront', () => {
 
