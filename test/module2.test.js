@@ -80,8 +80,8 @@ describe('Deploy a static site on Amazon S3', () => {
   });
 
   it('web application should be deployed in the user bucket @verify-web-application', async () => {
-    expect(process.env.PS_S3_WEBHOST_URL, 'Static website hosting URL must be entered by the user').to.be.a('string');
-    expect(process.env.PS_S3_WEBHOST_URL, 'Enter in the full URL from the static website hosting configuration').to.startWith('http');
+    expect(webhost, 'Static website hosting URL must be entered by the user').to.be.a('string');
+    expect(webhost, 'Enter in the full URL from the static website hosting configuration').to.startWith('http');
 
     const res = await chai.request(webhost).get('verify.txt');
     expect(res, 'Make sure you added the bucket policy to make all files publicly readable').to.have.status(200);
