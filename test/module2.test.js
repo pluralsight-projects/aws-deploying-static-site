@@ -3,8 +3,9 @@ const expect = require('chai').expect;
 chai.use(require('chai-http'));
 chai.use(require('chai-string'));
 
-const host = "https://" + process.env.PS_S3_BUCKET_NAME + ".s3.amazonaws.com";
+const host = "https://" + bucketName + ".s3.amazonaws.com";
 const webhost = process.env.PS_S3_WEBHOST_URL;
+const bucketName = process.env.PS_S3_BUCKET_NAME;
 const accountID = process.env.PS_AWS_ACCOUNT_ID;
 
 describe('Deploy a static site on Amazon S3', () => {
@@ -15,10 +16,16 @@ describe('Deploy a static site on Amazon S3', () => {
     expect(/^\d+$/.test(accountID), 'Account ID should contain only numbers').to.be.true;
   });
 
+  it('should have a valid bucket name @verify-s3-bucket', () => {
+    expect(bucketName, 'Bucket name must be entered by the user').to.be.a('string');
+    expect(bucketName, 'Bucket name should not contain and periods').to.not.include('.');
+    expect(bucketName.length, 'Bucket name must be entered by the user').to.be.gt(3);
+  });
+
   it('should be accessible @verify-uploaded-files', async () => {
-    expect(process.env.PS_S3_BUCKET_NAME, 'Bucket name must be entered by the user').to.be.a('string');
-    expect(process.env.PS_S3_BUCKET_NAME, 'Bucket name should not contain and periods').to.not.include('.');
-    expect(process.env.PS_S3_BUCKET_NAME.length, 'Bucket name must be entered by the user').to.be.gt(3);
+    expect(bucketName, 'Bucket name must be entered by the user').to.be.a('string');
+    expect(bucketName, 'Bucket name should not contain and periods').to.not.include('.');
+    expect(bucketName.length, 'Bucket name must be entered by the user').to.be.gt(3);
 
     const res = await chai.request(host).get('/index.html');
     expect(res, 'Permissions should be set to make index.html available to the public').to.have.status(200);
