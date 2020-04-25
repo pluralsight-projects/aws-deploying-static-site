@@ -30,7 +30,7 @@ const getWebhostURL = () => {
   if(!process.env.PS_S3_WEBHOST_URL || process.env.PS_S3_WEBHOST_URL.length < 5) {
     return '';
   }
-  return removeTrailingSlashIfPresent('http://' + process.env.PS_S3_WEBHOST_URL.trim());
+  return removeTrailingSlashIfPresent('http://' + process.env.PS_S3_WEBHOST_URL.trim() + '.s3-website-us-east-1.amazonaws.com');
 }
 
 const bucketName = trimOptionalEnvironmentVariable(process.env.PS_S3_BUCKET_NAME);
