@@ -26,9 +26,16 @@ const trimOptionalEnvironmentVariable = (val) => {
   return (val && val.length > 2) ? val.trim() : val;
 };
 
+const getWebhostURL = () => {
+  if(!process.env.PS_S3_WEBHOST_URL || process.env.PS_S3_WEBHOST_URL.length < 5) {
+    return '';
+  }
+  return removeTrailingSlashIfPresent('http://' + process.env.PS_S3_WEBHOST_URL.trim());
+}
+
 const bucketName = trimOptionalEnvironmentVariable(process.env.PS_S3_BUCKET_NAME);
 const host = getHostURL();
-const webhost = removeTrailingSlashIfPresent(trimOptionalEnvironmentVariable(process.env.PS_S3_WEBHOST_URL));
+const webhost = getWebhostURL();
 const accountID = trimOptionalEnvironmentVariable(process.env.PS_AWS_ACCOUNT_ID);
 
 describe('Deploy a static site on Amazon S3', () => {
