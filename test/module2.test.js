@@ -4,6 +4,9 @@ chai.use(require('chai-http'));
 chai.use(require('chai-string'));
 
 const addTrainingSlashIfNotPresent = (input) => {
+  if(!input) {
+    return input;
+  }
   let output = input;
   var lastChar = input.substr(-1);
   if (lastChar !== '/') {
@@ -16,12 +19,7 @@ const getHostURL = () => {
   if(!process.env.PS_S3_BUCKET_NAME || process.env.PS_S3_BUCKET_NAME.length < 5) {
     return '';
   }
-  let host = 'https://' + process.env.PS_S3_BUCKET_NAME.trim() + '.s3.amazonaws.com';
-  var lastChar = host.substr(-1);
-  if (lastChar != '/') {
-    host = host + '/';
-  }
-  return addTrainingSlashIfNotPresent(host);
+  return 'https://' + process.env.PS_S3_BUCKET_NAME.trim() + '.s3.amazonaws.com';
 };
 
 const trimOptionalEnvironmentVariable = (val) => {
