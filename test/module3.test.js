@@ -34,6 +34,7 @@ describe('Deploy a static site to Amazon CloudFront', () => {
   });
 
   it('make sure the CloudFront content is available @verify-cloudfront-deployment', async () => {
+    expect(domainName, 'Enter the generated CloudFront domain name which should end with cloudfront.net').to.endWith('.cloudfront.net');
     const res = await chai.request(cfhost).get('/');
     expect(res, 'Make sure you uploaded all of the correct files into the S3 bucket and configured distribution properly').to.have.status(200);
     expect(res.text, 'File should contain the correct key, make sure the correct file was uploaded').to.have.string('ps-index-2');
