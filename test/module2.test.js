@@ -72,6 +72,7 @@ describe('Deploy a static site on Amazon S3', () => {
   });
 
   it('error page should appear if navigating to page that does not exist @verify-static-hosting', async () => {
+    expect(0, 'Test verified with the new one').to.be.a('string');
     expect(webhost, 'Static website hosting URL must be entered by the user').to.be.a('string');
     expect(webhost, 'Enter in the full URL from the static website hosting configuration').to.startWith('http');
 
