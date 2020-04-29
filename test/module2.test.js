@@ -30,7 +30,7 @@ const getWebhostURL = () => {
   if(!process.env.PS_S3_WEBHOST_URL || process.env.PS_S3_WEBHOST_URL.length < 5) {
     return 'http://www.google.com/';
   }
-  return removeTrailingSlashIfPresent('http://' + process.env.PS_S3_WEBHOST_URL.trim() + '.s3-website-us-east-1.amazonaws.com');
+  return removeTrailingSlashIfPresent(process.env.PS_S3_WEBHOST_URL.trim());
 }
 
 const bucketName = trimOptionalEnvironmentVariable(process.env.PS_S3_BUCKET_NAME);
@@ -72,7 +72,6 @@ describe('Deploy a static site on Amazon S3', () => {
   });
 
   it('error page should appear if navigating to page that does not exist @verify-static-hosting', async () => {
-    expect(0, 'Test verified with the new one').to.be.a('string');
     expect(webhost, 'Static website hosting URL must be entered by the user').to.be.a('string');
     expect(webhost, 'Enter in the full URL from the static website hosting configuration').to.startWith('http');
 
