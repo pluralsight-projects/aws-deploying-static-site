@@ -28,7 +28,7 @@ const trimOptionalEnvironmentVariable = (val) => {
 
 const getWebhostURL = () => {
   if(!process.env.PS_S3_WEBHOST_URL || process.env.PS_S3_WEBHOST_URL.length < 5) {
-    return 'http://www.google.com/';
+    return '';
   }
   return removeTrailingSlashIfPresent(process.env.PS_S3_WEBHOST_URL.trim());
 }

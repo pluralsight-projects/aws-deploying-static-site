@@ -8,11 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "clean": "npx rimraf assets/group3/* assets/group2/*",
-    "sync:services-quiz": "aws s3 sync s3://ps-ccp-project/ps-services-quiz/ assets/group2/ --delete",
-    "sync:community": "aws s3 sync s3://ps-ccp-project/ps-community/ assets/group3/ --delete",
-    "sync:all": "npm run sync:services-quiz && npm run sync:community",
-    "sync": "npm run clean && npm run sync:all"
+    "clean": "npx rimraf assets/group3/* assets/group2/*"
   },
   "repository": {
     "type": "git",
