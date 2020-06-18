@@ -10,7 +10,7 @@ const removeTrailingSlashIfPresent = (input) => {
   let output = input;
   var lastChar = input.substr(-1);
   if (lastChar === '/') {
-    output = output.slice(0, str.length - 1);
+    output = output.slice(0, output.length - 1);
   }
   return output;
 }
